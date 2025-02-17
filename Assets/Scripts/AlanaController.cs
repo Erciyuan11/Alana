@@ -13,8 +13,19 @@ public class AlanaController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        float horizontal = Input.GetAxis("Horizontal");
+        float Vertical = Input.GetAxis("Vertical");
+        if (horizontal != 0)
+        {
+            Debug.Log(horizontal);
+        }
+        if (Vertical != 0)
+        {
+            Debug.Log(Vertical);
+        }
         Vector2 alanapos = transform.position;
-        alanapos.x = alanapos.x + 0.1f;
+        alanapos.x = alanapos.x + 0.1f*horizontal;
+        alanapos.y = alanapos.y + 0.1f * Vertical;
         transform.position = alanapos;
     }
 }
