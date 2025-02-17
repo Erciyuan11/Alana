@@ -24,8 +24,9 @@ public class AlanaController : MonoBehaviour
             Debug.Log(Vertical);
         }
         Vector2 alanapos = transform.position;
-        alanapos.x = alanapos.x + 0.1f*horizontal;
-        alanapos.y = alanapos.y + 0.1f * Vertical;
+        //速度乘以帧的时长，现在速度和帧数无关
+        alanapos.x = alanapos.x + 2f*horizontal*Time.deltaTime;
+        alanapos.y = alanapos.y + 2f * Vertical * Time.deltaTime;
         transform.position = alanapos;
     }
 }
