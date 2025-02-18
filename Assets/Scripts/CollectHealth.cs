@@ -9,9 +9,13 @@ public class CollectHealth : MonoBehaviour
     {
         AlanaController controller = other.GetComponent<AlanaController>();
         if (controller != null)
+            Debug.Log(controller.health + "/" + controller.maxhealth);
         {
-            controller.ChangeHealth(1);
-            Destroy(gameObject);
+            if(controller.health < controller.maxhealth)
+            {
+                controller.ChangeHealth(1);
+                Destroy(gameObject);
+            }
         }
     }
 }

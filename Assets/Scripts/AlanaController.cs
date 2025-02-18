@@ -7,6 +7,8 @@ public class AlanaController : MonoBehaviour
 {
     public int maxhealth = 5;
     public float speed = 3.0f;
+    //属性使用的规则是get，因此可以public只读
+    public int health { get { return currenthealth; } }
     int currenthealth;
 
 
@@ -16,8 +18,9 @@ public class AlanaController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //初始获取刚体组件
         rigidbody2d = GetComponent<Rigidbody2D>();
-        currenthealth = 1;
+        currenthealth = maxhealth;
 
     }
 
@@ -38,6 +41,7 @@ public class AlanaController : MonoBehaviour
     }
     public void ChangeHealth(int amount)
     {
+        //函数用于限制范围，不小于第二个，不大于第3个
         currenthealth = Mathf.Clamp(currenthealth + amount, 0, maxhealth);
         Debug.Log(currenthealth + "/" + maxhealth);
     }
