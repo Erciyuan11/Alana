@@ -4,29 +4,29 @@ using UnityEngine;
 
 public class AlanaController : MonoBehaviour
 {
+    Rigidbody2D rigidbody2d;
+    float horizontal;
+    float vertical;
     // Start is called before the first frame update
     void Start()
     {
-        
+        rigidbody2d = GetComponent<Rigidbody2D>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        float horizontal = Input.GetAxis("Horizontal");
-        float Vertical = Input.GetAxis("Vertical");
-        if (horizontal != 0)
-        {
-            Debug.Log(horizontal);
-        }
-        if (Vertical != 0)
-        {
-            Debug.Log(Vertical);
-        }
-        Vector2 alanapos = transform.position;
-        //速度乘以帧的时长，现在速度和帧数无关
-        alanapos.x = alanapos.x + 2f*horizontal*Time.deltaTime;
-        alanapos.y = alanapos.y + 2f * Vertical * Time.deltaTime;
-        transform.position = alanapos;
+        horizontal = Input.GetAxis("Horizontal");
+        vertical = Input.GetAxis("Vertical");
+    }
+    void FixedUpdate()
+    {
+        Vector2 position = rigidbody2d.position;
+        position.y = position.y+ vertical * 3f * Time.deltaTime;
+        position.x = position.x+ horizontal * 3f * Time.deltaTime;
+        rigidbody2d.position = position;
+        //rigidbody2d.MovePosition(position);
+
     }
 }
