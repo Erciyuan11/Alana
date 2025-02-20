@@ -172,7 +172,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxhealth: 5
   enemyspeed: 1
-  maxhight: 0.5
+  damage: 1
+  changetime: 1
 --- !u!50 &8826310024518636067
 Rigidbody2D:
   serializedVersion: 4
@@ -197,6 +198,6 @@ Rigidbody2D:
     serializedVersion: 2
     m_Bits: 0
   m_Interpolate: 0
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 0
   m_Constraints: 4

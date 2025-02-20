@@ -9,51 +9,49 @@ public class EnemyController : MonoBehaviour
     int currenthealth;
     public int health { get { return currenthealth;} }
     public float enemyspeed = 1.0f;
-    bool isUp;
-    public float maxhight = 0.5f;
+    float timer;
+    public int damage = -1;
+    public float changetime = 1.0f;
+    int direction = 1;
     Rigidbody2D rigidbody2d;
     // Start is called before the first frame update
     void Start()
     {
         rigidbody2d = GetComponent<Rigidbody2D>();
-        isUp = true;
+        timer = changetime;
         currenthealth = maxhealth;
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        timer = timer - Time.deltaTime;
+        if (timer < 0)
+        {
+            direction = -direction;
+            timer = changetime;
+        }
     }
 
     void FixedUpdate()
     {
         Vector2 position = transform.position;
-        Changedirection(isUp,position.y);
-        if (isUp )
-        {
-            position.y = position.y + enemyspeed * Time.deltaTime;
-        }
-        else
-        {
-            position.y = position.y - enemyspeed * Time.deltaTime;
-        }
-        
+        position.x = position.x + enemyspeed *direction * Time.deltaTime;
+        position.y = position.y + enemyspeed*direction * Time.deltaTime;
         rigidbody2d.MovePosition(position);
 
         
     }
 
-   void Changedirection (bool Updown,float positiony)
+     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (positiony> maxhight)
+       //触发器获得是碰撞体，碰撞体进入获得的是碰撞所以要加gameObject来获取原本的碰撞体，再获取脚本组件
+        AlanaController controller = collision.gameObject.GetComponent<AlanaController>();
+        if(controller != null)
         {
-            isUp = false;
+            
+            controller.ChangeHealth(damage);
         }
-        if (positiony<-1*maxhight)
-        {
-            isUp = true;
-        }
-
     }
+
 }
