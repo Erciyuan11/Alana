@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.UIElements;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AlanaController : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class AlanaController : MonoBehaviour
     Rigidbody2D rigidbody2d;
     float horizontal;
     float vertical;
+    public Slider healthbar;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,12 +28,15 @@ public class AlanaController : MonoBehaviour
         rigidbody2d = GetComponent<Rigidbody2D>();
         currenthealth = maxhealth;
         isInvincible = false;
+        healthbar.maxValue = maxhealth;
+        healthbar.value = currenthealth;
 
     }
 
     // Update is called once per frame
     void Update()
     {
+        
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
         //每帧减去每帧的时长，最后就是每2秒让布尔变负
@@ -41,6 +46,7 @@ public class AlanaController : MonoBehaviour
             if (invincibleTimer < 0)
                 isInvincible = false;
         }
+        healthbar.value = currenthealth;
 
     }
     void FixedUpdate()
@@ -64,6 +70,7 @@ public class AlanaController : MonoBehaviour
             isInvincible = true;
             invincibleTimer = timeInvincible;
         }
+        
         //函数用于限制范围，不小于第二个，不大于第3个
         currenthealth = Mathf.Clamp(currenthealth + amount, 0, maxhealth);
         Debug.Log(currenthealth + "/" + maxhealth);
